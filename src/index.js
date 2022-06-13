@@ -55,14 +55,16 @@ function renderArrayOfCountries(arrayOfCountries) {
     showCountries(arrayOfCountries);
   };
   if (numberOfCountries === 1) {
-    show1Country(arrayOfCountries)
+      width = "50px";
+    show1Country(arrayOfCountries);
   };  
 };
 
 function moreThan10(arrayOfCountries) {
     Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
     let markup = "";
-    countryList.innerHTML = markup;
+  countryList.innerHTML = markup;
+  countryInfo.innerHTML = markup;
 }
 
 function showCountries(arrayOfCountries) {
@@ -75,36 +77,35 @@ function show1Country(arrayOfCountries) {
 }
 
 function show(arrayOfCountries) {
-  // width = "30px";
   const markup = arrayOfCountries
     .map((country) => {
       return `<li>
-      <img src=${country.flags.svg} alt=${country.name.common} width="${width}" heigth="${width}">
+      <img src=${country.flags.svg} alt=${country.name.common} width="${width}">
       <b>${country.name.common}</b>
     </li>`;
     })
     .join("");
   countryList.innerHTML = markup;
   countryInfo.innerHTML = "";
+  countryList.style.fontSize = "20px";
+    width = "30px";
 };
 
 function showCountryInfo(arrayOfCountries) {
-  // width = "50px";
   const markup = arrayOfCountries
               .map((country) => {
                 let languages = Object.values(country.languages);
-                // countryList.style.fontSize = "30px";
           return `
           <p>Capital: ${country.capital}</p>
-          <p>Population ${country.population}</p>
+          <p>Population: ${country.population}</p>
           <p>Languages: ${languages}</p>
         `;
         })
         .join("");
-      countryInfo.innerHTML = markup;
+  countryInfo.innerHTML = markup;
+  countryList.style.fontSize = "30px";
+  
 }
-
-
 
 
 function clearInput() {
