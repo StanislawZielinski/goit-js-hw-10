@@ -24,17 +24,26 @@ countryList.style.lineHeight = "3";
 countryList.style.verticalAlign = "middle";
 
 input.addEventListener("input", _.debounce((event) => {
-    fetchCountries(event.target.value.trim())
-      .then((arrayOfCountries) =>
-        renderArrayOfCountries(arrayOfCountries))
-      .catch((error) => console.log(error));
-    },
-    DEBOUNCE_DELAY,
-    {
-      leading: false,
-      trailing: true,
-    }
-  )
+
+      fetchCountries(event.target.value.trim())
+        .then(arrayOfCountries =>
+          renderArrayOfCountries(arrayOfCountries))
+        .catch(function catchError(error) {
+          // if (event.target.value.trim() === "") {
+          //   Notiflix.Notify.failure("please enter a country name")
+          // }
+
+          Notiflix.Notify.failure("Oops, there is no country with that name");
+          let markup = "";
+          countryList.innerHTML = markup;
+        });
+  },
+  DEBOUNCE_DELAY,
+  {
+    leading: false,
+    trailing: true,
+  }
+)
 );
 
 function renderArrayOfCountries(arrayOfCountries) {
@@ -67,7 +76,7 @@ function show1Country(arrayOfCountries) {
 }
 
 function show(arrayOfCountries) {
-  width = "30px";
+  // width = "30px";
   const markup = arrayOfCountries
     .map((country) => {
       return `<li>
@@ -81,11 +90,11 @@ function show(arrayOfCountries) {
 };
 
 function showCountryInfo(arrayOfCountries) {
-  width = "50px";
+  // width = "50px";
   const markup = arrayOfCountries
               .map((country) => {
                 let languages = Object.values(country.languages);
-                countryList.style.fontSize = "30px";
+                // countryList.style.fontSize = "30px";
           return `
           <p>Capital: ${country.capital}</p>
           <p>Population ${country.population}</p>
@@ -94,4 +103,16 @@ function showCountryInfo(arrayOfCountries) {
         })
         .join("");
       countryInfo.innerHTML = markup;
+}
+
+
+
+// if (event.target.value.trim() === "") {
+//   Notiflix.Notify.info("please enter a country name");
+//   let markup = "";
+//   countryList.innerHTML = markup;
+//   countryInfo.innerHTML = markup;
+// } else { }
+function test() {
+  console.log("nothing");
 }
